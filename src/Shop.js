@@ -1,15 +1,44 @@
-import React from 'react'
+import React from "react";
+import { actionCreators } from "./state/index";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
 
 const Shop = () => {
+  const dispatch = useDispatch();
+  const { withdrawMoney, depositMoney } = bindActionCreators(
+    actionCreators,
+    dispatch
+);
+const balance = useSelector(state => state.amount)
+
   return (
     <div>
-        <h2>Deposit/Withdraw Balance</h2>
-        {/* <h4>Rs.50/-</h4> */}
-        <button className='btn btn-primary mx-2'> - </button>
+      <h2>Deposit/Withdraw Balance</h2>
+      {/* <h4>Rs.50/-</h4> */}
+      <button
+        className="btn btn-primary mx-2"
+        onClick={() => {
+          withdrawMoney(100);
+        }}
+      >
+        {" "}
+        -{" "}
+      </button>
+      Update Balance {balance}
+      <button
+        className="btn btn-primary mx-2"
+        onClick={() => {
+          depositMoney(100);
+        }}
+      >
+        {" "}
+        +{" "}
+      </button>
+      {/* <button className='btn btn-primary mx-2' onClick={()=>{dispatch(actionCreators.withdrawMoney(100))}}> - </button>
         Update Balance
-        <button className='btn btn-primary mx-2'> + </button>
+        <button className='btn btn-primary mx-2' onClick={()=> {dispatch(actionCreators.depositMoney(100))}}> + </button> */}
     </div>
-  )
-}
+  );
+};
 
-export default Shop
+export default Shop;
